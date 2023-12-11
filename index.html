@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <title>فروشگاه محیا</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <header>
+            <nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark border-body" data-bs-theme="dark">
+                <div class="container-fluid">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                        <i class="fa-solid fa-bars fa-lg text-white"></i>
+                    </button>
+                    <img src="img/logo.png" alt="">
+                    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                        <ul class="navbar-nav me-5 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link text-white text-center active" aria-current="page" href="#">صفحه
+                                    اصلی</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white text-center" href="#">محصولات</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white text-center" href="#">شگفت انگیز ها</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white text-center" href="#">پرفروش ترین ها</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white text-center mb-2" href="#">ارتباط با ما</a>
+                            </li>
+                        </ul>
+                        <div class="search mr-5">
+                            <div class="d-flex search_bar" id="searchForm" role="search">
+                                <i class="fa fa-search"></i>
+                                <input class="search_input form-control me-2" id="searchInput" type="text"
+                                    placeholder="جستجوی محصولات" aria-label="Search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cart__count">
+                        <span class="total__counter">0</span>
+                        <i class="fa fa-shopping-cart"></i>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="modal_basket">
+                <div class="cart">
+                    <div class="close_modal">
+                        <span class="close_modal-span">&times;</span>
+                    </div>
+                    <div class="image_empty-basket">
+                        <img src="img/empty.png" alt="">
+                    </div>
+                    <div class="cart__items">
+                        <div class="cart__items-content">
+
+                        </div>
+                        <div class="check_out">
+                            <span class="total-price">مجموع:</span>
+                            <span class="total__cost">${totalPrice}</span>
+                            <span>تومان</span>
+                            <button class="btn check_out_btn m-0" id="remove_all_product">حذف همه</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="swiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"><img class="slider_img" src="img/Slider_1.jpg"></div>
+                <div class="swiper-slide"><img class="slider_img" src="img/slider_2.jpg"></div>
+                <div class="swiper-slide"><img class="slider_img" src="img/slider_3.jpg"></div>
+            </div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>
+
+        <div class="row mt-3">
+            <section class="filter">
+                <div class="filter__item">
+                    <div class="filter__span">
+                        <label class="form-label text-center mb-0">دسته بندی محصولات:</label>
+                    </div>
+                    <select class="m-3" name="products" id="categoriz_products">
+                        <option value="all">همه محصولات</option>
+                        <option value="men's clothing">men's clothing</option>
+                        <option value="jewelery">jewelery</option>
+                        <option value="electronics">electronics</option>
+                        <option value="women's clothing">women's clothing</option>
+                    </select>
+
+                </div>
+                <div class="sort__item">
+                    <div class="sort__span">
+                        <label class="form-label text-center mb-0 text-center">مرتب سازی:</label>
+                    </div>
+                    <select class="m-3" name="sortproducts" id="sort_products">
+                        <option value="default">بدون دسته بندی</option>
+                        <option value="highToLow">گران به ارزان</option>
+                        <option value="lowToHigh">ارزان به گران</option>
+                    </select>
+                </div>
+
+            </section>
+        </div>
+        <div id="loading">
+            <div class="text-center m-3">
+                <div class="spinner-border" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="products">
+
+
+                </div>
+            </div>
+            <div class="pagenumbers" id="pagination"></div>
+        </div>
+        <footer class="bg-dark text-center text-white mt-4">
+            <div class="container p-4">
+                <section class="mb-4">
+                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                            class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                            class="fab fa-twitter"></i></a>
+
+                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                            class="fab fa-google"></i></a>
+
+                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                            class="fab fa-instagram"></i></a>
+                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                            class="fab fa-linkedin-in"></i></a>
+                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i
+                            class="fab fa-github"></i></a>
+                </section>
+
+                <section class="">
+                    <form action="">
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-auto">
+                                <p class="pt-2">
+                                    <strong>Sign up for our Store</strong>
+                                </p>
+                            </div>
+
+                            <div class="col-md-5 col-12">
+                                <div class="form-outline form-white mb-4">
+                                    <input type="email" id="form5Example2" class="form-control" />
+                                    <label class="form-label" for="form5Example2">Email address</label>
+                                </div>
+                            </div>
+
+                            <div class="col-auto">
+                                <button type="submit" class="btn btn-outline-light mb-4">
+                                    Subscribe
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+
+                <section>
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                            <h5 class="text-uppercase">Links</h5>
+
+                            <ul class="list-unstyled mb-0">
+                                <li>
+                                    <a href="#!" class="text-white">Link 1</a>
+                                </li>
+                                <li>
+                                    <a href="#!" class="text-white">Link 2</a>
+                                </li>
+                                <li>
+                                    <a href="#!" class="text-white">Link 3</a>
+                                </li>
+                                <li>
+                                    <a href="#!" class="text-white">Link 4</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                            <h5 class="text-uppercase">Links</h5>
+
+                            <ul class="list-unstyled mb-0">
+                                <li>
+                                    <a href="#!" class="text-white">Link 1</a>
+                                </li>
+                                <li>
+                                    <a href="#!" class="text-white">Link 2</a>
+                                </li>
+                                <li>
+                                    <a href="#!" class="text-white">Link 3</a>
+                                </li>
+                                <li>
+                                    <a href="#!" class="text-white">Link 4</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                            <h5 class="text-uppercase">Links</h5>
+
+                            <ul class="list-unstyled mb-0">
+                                <li>
+                                    <a href="#!" class="text-white">Link 1</a>
+                                </li>
+                                <li>
+                                    <a href="#!" class="text-white">Link 2</a>
+                                </li>
+                                <li>
+                                    <a href="#!" class="text-white">Link 3</a>
+                                </li>
+                                <li>
+                                    <a href="#!" class="text-white">Link 4</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                            <h5 class="text-uppercase">Links</h5>
+
+                            <ul class="list-unstyled mb-0">
+                                <li>
+                                    <a href="#!" class="text-white">Link 1</a>
+                                </li>
+                                <li>
+                                    <a href="#!" class="text-white">Link 2</a>
+                                </li>
+                                <li>
+                                    <a href="#!" class="text-white">Link 3</a>
+                                </li>
+                                <li>
+                                    <a href="#!" class="text-white">Link 4</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+                © 2020 Copyright:
+                <a class="text-white" href="https://mdbootstrap.com/">MYproject.com</a>
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>
