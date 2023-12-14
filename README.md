@@ -4,3 +4,6 @@ This is a simple web project for creating an online store, implemented using HTM
 ## Demo
 You can find a running demo here: 
 [https://mywebproject.com](https://nasrinmzd.github.io/store-project/)
+
+![Screenshot](img/demo.png)
+
