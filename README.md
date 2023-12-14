@@ -5,5 +5,5 @@ This is a simple web project for creating an online store, implemented using HTM
 You can find a running demo here: 
 [https://mywebproject.com](https://nasrinmzd.github.io/store-project/)
 
-![Screenshot](img/demo.png)
+<img src="img/demo.png" style="height:650px">
 
