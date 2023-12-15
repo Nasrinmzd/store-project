@@ -17,6 +17,8 @@ const navbartoggler = $.querySelector('.navbar-toggler')
 const modalAddBasket = $.querySelector('.modal__addBasket')
 const basketProductsContainer = $.querySelector('.cart__items')
 const cartItemsContent = $.querySelector('.cart__items-content')
+const searchBarIcon = $.querySelector('.search_bar--icon')
+
 
 
 
@@ -28,6 +30,8 @@ let rowCount = 8 //Number of rows per page
 let currentProducts = allProducts; // To hold the filtered products
 let isCategorySelected = false; //category selected flag
 let isSortSelected = false; //sort selected flag
+let sizeWindow = window.innerWidth
+let elemtop = productsContainer.getBoundingClientRect().top - (sizeWindow > 768 ? 200 : 0)
 
 // table for cart basket
 let cartTable =
@@ -51,7 +55,6 @@ let cartTable =
 
 let cartMobileBasketContetnt = `<div class="cart__items-products"></div>`
 
-let sizeWindow = window.innerWidth
 
 //for slider
 var swiper = new Swiper(".swiper", {
@@ -167,7 +170,7 @@ function addProductsToBasketArray(productId) {
     Toastify({
         text: "محصول به سبد خرید اضافه شد",
         className: "info_notification",
-        duration: 20000,
+        duration: 3000,
         close: true,
         gravity: "bottom", // `top` or `bottom`
         position: "right", // `left`, `center` or `right`
@@ -286,7 +289,7 @@ function removeProductFromBasket(productId) {
     Toastify({
         text: "محصول از سبد خرید حذف شد",
         className: "info_notification",
-        duration: 20000,
+        duration: 3000,
         close: true,
         gravity: "bottom", // `top` or `bottom`
         position: "right", // `left`, `center` or `right`
@@ -310,7 +313,7 @@ removeAllProduct.addEventListener('click', () => {
     Toastify({
         text: "همه محصولات از سبد خرید حذف شدند",
         className: "info_notification",
-        duration: 20000,
+        duration: 3000,
         close: true,
         gravity: "bottom", // `top` or `bottom`
         position: "right", // `left`, `center` or `right`
@@ -368,8 +371,8 @@ searchInput.addEventListener('keyup', (e) => {
     }
 })
 
-function searchProductsFunc(e) {
-    let searchItem = e.target.value.toLowerCase()
+function searchProductsFunc() {
+    let searchItem = searchInput.value.toLowerCase()
 
     let FilteredProducts = allProducts.filter(product => {
         return product.title.toLowerCase().includes(searchItem)
@@ -378,6 +381,11 @@ function searchProductsFunc(e) {
     displayProductsPagination(FilteredProducts, productsContainer, rowCount, currentPage)
     setupPagination(FilteredProducts, paginationContainer, rowCount)
 }
+
+searchBarIcon.addEventListener('click', () =>{
+    searchProductsFunc()
+    window.scrollTo(0, elemtop)
+})
 
 // category product
 
@@ -418,19 +426,23 @@ categorizProducts.addEventListener('change', async () => {
 sortProducts.addEventListener('change', () => {
     let sortValue = sortProducts.value
 
-    // currentProducts = [...allProducts]
+    let sortedProducts = [...currentProducts]; 
+
     
     if (sortValue === 'lowToHigh') {
         isSortSelected = true
-        currentProducts.sort((a, b) => a.price - b.price);
+        sortedProducts.sort((a, b) => a.price - b.price);
 
     } else if (sortValue === 'highToLow') {
         isSortSelected = true
-        currentProducts.sort((a, b) => b.price - a.price);
+        sortedProducts.sort((a, b) => b.price - a.price);
 
     } else if (sortValue === 'default') {
         isSortSelected = false
     }
+
+    currentProducts = sortedProducts;
+
 
     if (isCategorySelected || isSortSelected) {
         displayProductsPagination(currentProducts, productsContainer, rowCount, currentPage)
@@ -509,6 +521,8 @@ function paginationButtonGenerator(page, allProductsArray) {
 window.addEventListener('resize', () => {
     sizeWindow = window.innerWidth
     basketProductsGenerator(userBasket)
+
+    elemtop = productsContainer.getBoundingClientRect().top
 
 })
 

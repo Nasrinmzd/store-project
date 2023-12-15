@@ -450,9 +450,15 @@ body {
     .btn__remove {
         margin-left: -60px;
     }
+    .search {
+        margin: auto;
+    }
+   
+   
 }
 
 @media screen and (max-width: 768px) {
+   
     .swiper {
         height: 250px;
     }
