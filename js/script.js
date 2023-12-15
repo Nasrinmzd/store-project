@@ -31,7 +31,7 @@ let currentProducts = allProducts; // To hold the filtered products
 let isCategorySelected = false; //category selected flag
 let isSortSelected = false; //sort selected flag
 let sizeWindow = window.innerWidth
-let elemtop = productsContainer.getBoundingClientRect().top - (sizeWindow > 768 ? 200 : 0)
+let elemtop = productsContainer.getBoundingClientRect().top - (sizeWindow > 768 ? 200 : 0) // scroll for search results
 
 // table for cart basket
 let cartTable =
