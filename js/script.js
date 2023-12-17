@@ -368,6 +368,7 @@ window.addEventListener('load', getLocalStorageItems())
 searchInput.addEventListener('keyup', (e) => {
     if (e.keyCode === 13) {
         searchProductsFunc(e)
+        window.scrollTo(0, elemtop)
     }
 })
 
